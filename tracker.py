@@ -1,6 +1,6 @@
-# Project: Expense Tracker | Installment 2: Talking to the User
+# Project: Expense Tracker | Installment 3: The Tracker Does Math
 # Author: Vinsel John M. Ramones
-# Description: Prints the landing page, then asks the user for a name and two expenses and prints a summary.
+# Description: Prints the landing page, asks for a name and two expenses, then computes subtotal, average, tax, grand total and budget.
 
 # Top banner
 print("=" * 40)
@@ -23,15 +23,29 @@ print("\t[4] Exit\t\t(coming soon)")
 name = input("\nWhat's your name? ")
 print(f"Welcome, {name}! Let's log two expenses.\n")
 
-# Ask for two expenses (amounts stored as numbers)
+# Running subtotal starts at 0 and grows right after each amount is read
+subtotal = 0
+
 item1 = input("First expense? ")
 amount1 = float(input("Amount? "))
+subtotal += amount1
+
 item2 = input("Second expense? ")
 amount2 = float(input("Amount? "))
+subtotal += amount2
 
-# Calculations
-total = amount1 + amount2
-average = total / 2
+# Average comes from the subtotal
+average = subtotal / 2
+
+# Tax rate is typed as a whole number (12 means 12%)
+tax_percent = float(input("Tax rate %? "))
+tax = subtotal * tax_percent / 100
+total = subtotal + tax
+
+# Budget check
+budget = float(input("Your budget? "))
+over_budget = total > budget
+left = budget - total
 
 # Summary: tabs line up the values
 print()
@@ -39,9 +53,13 @@ print("-" * 40)
 print("SUMMARY")
 print(f"  - {item1}:\t${amount1}")
 print(f"  - {item2}:\t${amount2}")
-print(f"Total spent:\t${total}")
+print(f"Subtotal:\t${subtotal}")
 print(f"Average:\t${average}")
+print(f"Tax ({tax_percent}%):\t${tax}")
+print(f"Grand total:\t${total}")
+print(f"Over budget?\t{over_budget}")
+print(f"Left in budget:\t${left}")
 print("-" * 40)
 
 # Footer
-print("Made by: Vinsel John M. Ramones | Installment 2")
+print("Made by: Vinsel John M. Ramones | Installment 3")
